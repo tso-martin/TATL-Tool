@@ -42,3 +42,4 @@ octave-workspace
 # Distributed packages
 dist/
 Ergebnisse/*
+!input_data/*
