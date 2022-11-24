@@ -25,13 +25,23 @@ I_TATL = TATLTherm(D, R_ac, V_w, Phi, T_a, Epsilon, He, Q_se, alpha, alpha_s, M1
 assert(abs(I_TATL - I_valid) < tolerance,sprintf('Too large deviation of I_TATL = %.2f from valid value %.2f', I_TATL, I_valid))
 assert(I_TATL >= 0, 'Negative I_TATL!')
 
-%% Test 2: I_TATL = 500 A for 15 min and end temperature of 77.2896 °C (current step up)
+%% Test 2a: I_TATL = 456 A for 15 min and end temperature of 77.2896 °C (current step up) with short-circuit heating
 I_prefault = 100;
 t_end = 15;
 T_end = 77.2896;
-I_valid = 500;
+I_valid = 456.9472;
 tolerance = 1;
 I_TATL = TATLTherm(D, R_ac, V_w, Phi, T_a, Epsilon, He, Q_se, alpha, alpha_s, M1, M2, Cp1, Cp2, I_prefault, t_end, T_end);
+assert(abs(I_TATL - I_valid) < tolerance,sprintf('Too large deviation of I_TATL = %.2f from valid value %.2f', I_TATL, I_valid))
+assert(I_TATL >= 0, 'Negative I_TATL!')
+
+%% Test 2b: I_TATL = 456 A for 15 min and end temperature of 77.2896 °C (current step up) without short-circuit heating
+I_prefault = 100;
+t_end = 15;
+T_end = 77.2896;
+I_valid = 460.6493;
+tolerance = 1;
+I_TATL = TATLTherm(D, R_ac, V_w, Phi, T_a, Epsilon, He, Q_se, alpha, alpha_s, M1, M2, Cp1, Cp2, I_prefault, t_end, T_end, DeltaT_SC=0);
 assert(abs(I_TATL - I_valid) < tolerance,sprintf('Too large deviation of I_TATL = %.2f from valid value %.2f', I_TATL, I_valid))
 assert(I_TATL >= 0, 'Negative I_TATL!')
 
